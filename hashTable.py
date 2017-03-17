@@ -1,7 +1,4 @@
-"""Main Program File for basics review program: Library Database system
-hopefully to include all first year programming concepts in the construction
-and management of a library database, data structures, lists, stacks, modifiers,
-all that jazz"""
+""" First attempt to implement a fast-lookup hash table method with ISBN keys"""
 from random import randint
 
 class Book:
