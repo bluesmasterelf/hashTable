@@ -33,25 +33,20 @@ class HashTable:
             #if nrBooks is close to length, need to expand, build method later.
             
     def lookUp(self, ISBN):
-        found=False
         hashValue=self.hashFunction(ISBN)
         for book in self.table[hashValue]:
             if ISBN==book.ISBN:
-                found=True
                 return book
-        if not found:
-            raise ValueError('Book not found')
+        return False
 
     def search(self, parameter, value):
-        found=False
         for i in range(len(self.table)):
             for j in range(len(self.table[i])):
                 if getattr(self.table[i][j], parameter)==value:
                     found=True
                     return self.table[i][j]
                 #super slow search algorithm, O(len(table)) run time, does not account for duplicate entries of value with distinct ISBNs
-        if not found:
-            raise ValueError('Book not found')
+        return False
 
 if __name__=='__main__':
 #goal below is to test the hashTable class
@@ -83,15 +78,23 @@ if __name__=='__main__':
     testBook=Book('1234567890123')
     database.storeBook(testBook)
     lookedUp=database.lookUp('1234567890123')
-    print (lookedUp.title, lookedUp.ISBN)
-    #lookup a book that isn't there to test exception
-#    lookedUpx=database.lookUp('01234567890123')
-#    print (lookedUpx.title, lookedUpx.ISBN)
+    if lookedUp:
+        print (lookedUp.title, lookedUp.ISBN)
+    else:
+        print('error, book not found')
+#    lookup a book that isn't there to test exception
+    lookedUpx=database.lookUp('01234567890123')
+    if lookedUpx:
+        print (lookedUpx.title, lookedUpx.ISBN)
+    else:
+        print('error, book not found')
 
 #need to set up so that program doesn't end on exception
 
     #search by other variables, check speed. Will need >1000 for speed to be human noticable.
     searchTitle=testBook.title
     lookedUpS=database.search('title',searchTitle)
-    print (lookedUpS.title, lookedUpS.ISBN)
-
+    if lookedUpS:
+        print (lookedUpS.title, lookedUpS.ISBN)
+    else:
+        print ('error, book not found')
