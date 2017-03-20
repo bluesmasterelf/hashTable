@@ -40,11 +40,10 @@ class HashTable:
         return False
 
     def search(self, parameter, value):
-        for i in range(len(self.table)):
-            for j in range(len(self.table[i])):
-                if getattr(self.table[i][j], parameter)==value:
-                    found=True
-                    return self.table[i][j]
+        for list in self.table:
+            for book in list:
+                if getattr(book, parameter) ==value:
+                    return book
                 #super slow search algorithm, O(len(table)) run time, does not account for duplicate entries of value with distinct ISBNs
         return False
 
