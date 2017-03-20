@@ -42,10 +42,16 @@ class HashTable:
         if not found:
             raise ValueError('Book not found')
 
-    def search(self, parameter):
-        return self.table[0]
-#super slow search algorithm, O(len(table)) run time
-
+    def search(self, parameter, value):
+        found=False
+        for i in range(len(self.table)):
+            for j in range(len(self.table[i])):
+                if getattr(self.table[i][j], parameter)==value:
+                    found=True
+                    return self.table[i][j]
+                #super slow search algorithm, O(len(table)) run time, does not account for duplicate entries of value with distinct ISBNs
+        if not found:
+            raise ValueError('Book not found')
 
 if __name__=='__main__':
 #goal below is to test the hashTable class
@@ -78,13 +84,14 @@ if __name__=='__main__':
     database.storeBook(testBook)
     lookedUp=database.lookUp('1234567890123')
     print (lookedUp.title, lookedUp.ISBN)
-#    try:
-    lookedUpx=database.lookUp('01234567890123')
-    print (lookedUpx.title, lookedUpx.ISBN)
-#    except AttributeError:
-#        print('Error, book not found/invalid ID, please try again')
+    #lookup a book that isn't there to test exception
+#    lookedUpx=database.lookUp('01234567890123')
+#    print (lookedUpx.title, lookedUpx.ISBN)
 
+#need to set up so that program doesn't end on exception
 
     #search by other variables, check speed. Will need >1000 for speed to be human noticable.
-
+    searchTitle=testBook.title
+    lookedUpS=database.search('title',searchTitle)
+    print (lookedUpS.title, lookedUpS.ISBN)
 
