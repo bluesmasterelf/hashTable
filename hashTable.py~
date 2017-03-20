@@ -40,8 +40,7 @@ class HashTable:
                 found=True
                 return book
         if not found:
-            raise ValueError('Book not found')
-
+            return
     def search(self, parameter):
         return self.table[0]
 #super slow search algorithm, O(len(table)) run time
@@ -78,11 +77,11 @@ if __name__=='__main__':
     database.storeBook(testBook)
     lookedUp=database.lookUp('1234567890123')
     print (lookedUp.title, lookedUp.ISBN)
-#    try:
-    lookedUpx=database.lookUp('01234567890123')
-    print (lookedUpx.title, lookedUpx.ISBN)
-#    except AttributeError:
-#        print('Error, book not found/invalid ID, please try again')
+    try:
+        lookedUpx=database.lookUp('01234567890123')
+        print (lookedUpx.title, lookedUpx.ISBN)
+    except AttributeError:
+        print('Error, book not found/invalid ID, please try again')
 
 
     #search by other variables, check speed. Will need >1000 for speed to be human noticable.
