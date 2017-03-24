@@ -17,13 +17,13 @@ class HashTable:
         return len(self.table)
 
     def hashFunction(self, ISBN):
+        """This hash function is, as far as I know, of my own creation. Given random ISBNs, the output should be random, as long as the modulus has a prime factor>41. Residues of powers of primes are random modulo other primes. 
+        """
         hashValue=1
         for i in range(13):
             iter=self.primes[i]**int(ISBN[i])  #note ISBNs are strings
             hashValue=hashValue+iter 
-#            print(hashValue)
         hashValue=hashValue%len(self) #constant time, ~13*6 multiplications
-#        print(hashValue)
         return hashValue
 
     def storeBook(self, book):
@@ -33,6 +33,8 @@ class HashTable:
             #if nrBooks is close to length, need to expand, build method later.
             
     def lookUp(self, ISBN):
+        """Constant time retrieval method
+        """
         hashValue=self.hashFunction(ISBN)
         for book in self.table[hashValue]:
             if ISBN==book.ISBN:
@@ -40,11 +42,12 @@ class HashTable:
         return False
 
     def search(self, parameter, value):
+        """super slow search algorithm, O(len(table)) run time, does not account for duplicate entries of value with distinct ISBNs"""
         for list in self.table:
             for book in list:
                 if getattr(book, parameter) ==value:
+                    #alternatively: if book.__dict__[parameter]==value:
                     return book
-                #super slow search algorithm, O(len(table)) run time, does not account for duplicate entries of value with distinct ISBNs
         return False
 
 if __name__=='__main__':
