@@ -33,7 +33,7 @@ if __name__=='__main__':
         print("sorry, that resource hasn't been coded yet.")
 
     raw_input("press return")
-    print("Here's some other data instead.")
+    print("Here's a join of the name and title columns of the artists and albums tables.")
     
     cursor.execute("SELECT Name, Title FROM artists INNER JOIN albums ON albums.Artistid=artists.ArtistId")
     res=cursor.fetchall()
